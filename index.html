@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>أبو صلاح للاستعلامات</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-strawberry: #FF6B6B;
+            --secondary-strawberry: #FF8E8E;
+            --light-strawberry: #FFE5E5;
+            --dark-strawberry: #E74C3C;
+            --white: #FFFFFF;
+            --pink-light: #FFF0F0;
+            --warning-orange: #FF8C00;
+            --warning-yellow: #FFD700;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            direction: rtl;
+            text-align: right;
+            background: linear-gradient(135deg, var(--pink-light) 0%, var(--light-strawberry) 100%);
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* خلفية الفراولة */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(255, 107, 107, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 142, 142, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 60%, rgba(231, 76, 60, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* أيقونات الفراولة العائمة */
+        .strawberry-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .strawberry-icon {
+            position: absolute;
+            color: rgba(255, 107, 107, 0.1);
+            font-size: 2rem;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .strawberry-icon:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+        .strawberry-icon:nth-child(2) { top: 20%; right: 15%; animation-delay: 2s; }
+        .strawberry-icon:nth-child(3) { top: 60%; left: 5%; animation-delay: 4s; }
+        .strawberry-icon:nth-child(4) { top: 70%; right: 10%; animation-delay: 1s; }
+        .strawberry-icon:nth-child(5) { top: 40%; left: 80%; animation-delay: 3s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .container {
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(255, 107, 107, 0.2);
+            padding: 30px;
+            margin-top: 20px;
+            border: 3px solid var(--light-strawberry);
+            position: relative;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--primary-strawberry), var(--secondary-strawberry));
+            border-radius: 20px;
+            z-index: -1;
+        }
+
+        h1 {
+            color: var(--dark-strawberry);
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: bold;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(255, 107, 107, 0.2);
+        }
+
+        h1 i {
+            color: var(--primary-strawberry);
+            margin-left: 15px;
+        }
+
+        .search-box {
+            background: linear-gradient(135deg, var(--light-strawberry) 0%, var(--pink-light) 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border: 2px solid var(--primary-strawberry);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.15);
+        }
+
+        .form-control {
+            border: 2px solid var(--light-strawberry);
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: var(--white);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-strawberry);
+            box-shadow: 0 0 0 0.2rem rgba(255, 107, 107, 0.25);
+            background: var(--white);
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--primary-strawberry), var(--secondary-strawberry));
+            border: none;
+            padding: 15px 30px;
+            font-weight: bold;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.3);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
+            background: linear-gradient(45deg, var(--dark-strawberry), var(--primary-strawberry));
+        }
+
+        .table {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.15);
+            border: 2px solid var(--light-strawberry);
+        }
+
+        .table-dark {
+            background: linear-gradient(90deg, var(--primary-strawberry) 0%, var(--secondary-strawberry) 100%);
+            color: var(--white);
+        }
+
+        .table th {
+            border: none;
+            padding: 18px;
+            font-weight: bold;
+            text-align: center;
+            background: linear-gradient(90deg, var(--primary-strawberry) 0%, var(--secondary-strawberry) 100%);
+            color: var(--white);
+        }
+
+        .table td {
+            border: 1px solid var(--light-strawberry);
+            padding: 15px;
+            text-align: center;
+            vertical-align: middle;
+            background: var(--white);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .table td:hover {
+            background: linear-gradient(135deg, var(--light-strawberry) 0%, var(--pink-light) 100%);
+            transform: scale(1.02);
+        }
+
+        .table-hover tbody tr:hover {
+            background: linear-gradient(135deg, var(--light-strawberry) 0%, var(--pink-light) 100%);
+            transform: scale(1.02);
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.2);
+        }
+
+        mark {
+            background: linear-gradient(45deg, var(--primary-strawberry), var(--secondary-strawberry));
+            color: var(--white);
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .autocomplete-items {
+            border: 2px solid var(--primary-strawberry);
+            border-top: none;
+            z-index: 99;
+            top: 100%;
+            left: 0;
+            right: 0;
+            position: absolute;
+            background-color: var(--white);
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.2);
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .autocomplete-item {
+            padding: 15px;
+            cursor: pointer;
+            border-bottom: 1px solid var(--light-strawberry);
+            transition: all 0.3s ease;
+        }
+
+        .autocomplete-item:hover {
+            background: linear-gradient(135deg, var(--light-strawberry) 0%, var(--pink-light) 100%);
+            color: var(--dark-strawberry);
+            transform: translateX(-5px);
+        }
+
+        .autocomplete-item:last-child {
+            border-bottom: none;
+        }
+
+        .autocomplete-item.warning {
+            background: linear-gradient(135deg, rgba(255, 140, 0, 0.1) 0%, rgba(255, 215, 0, 0.1) 100%);
+            border-right: 4px solid var(--warning-orange);
+        }
+
+        .autocomplete-item.warning:hover {
+            background: linear-gradient(135deg, rgba(255, 140, 0, 0.2) 0%, rgba(255, 215, 0, 0.2) 100%);
+        }
+
+        .autocomplete-item .warning-icon {
+            color: var(--warning-orange);
+            margin-left: 8px;
+            font-size: 0.9em;
+        }
+
+        .position-relative {
+            position: relative;
+        }
+
+        .btn-sm {
+            background: linear-gradient(45deg, var(--primary-strawberry), var(--secondary-strawberry));
+            border: none;
+            color: var(--white);
+            font-weight: bold;
+            transition: all 0.3s ease;
+            padding: 8px 15px;
+        }
+
+        .btn-sm:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 107, 107, 0.3);
+            background: linear-gradient(45deg, var(--dark-strawberry), var(--primary-strawberry));
+        }
+
+        .loading {
+            text-align: center;
+            padding: 50px;
+            color: var(--dark-strawberry);
+            font-size: 1.2rem;
+        }
+
+        .spinner {
+            border: 4px solid var(--light-strawberry);
+            border-top: 4px solid var(--primary-strawberry);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* تحذير الكلمات المحددة */
+        .warning-alert {
+            background: linear-gradient(135deg, var(--warning-yellow) 0%, var(--warning-orange) 100%);
+            border: 2px solid var(--warning-orange);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 25px rgba(255, 140, 0, 0.3);
+            animation: slideIn 0.5s ease-out;
+            display: none;
+        }
+
+        .warning-alert.show {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .warning-alert h5 {
+            color: var(--dark-strawberry);
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .warning-alert p {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .warning-alert .btn-warning {
+            background: linear-gradient(45deg, var(--warning-orange), var(--warning-yellow));
+            border: none;
+            color: #333;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .warning-alert .btn-warning:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 140, 0, 0.4);
+            color: #333;
+        }
+
+        /* Modal للوصف السريع */
+        .modal-content {
+            border-radius: 20px;
+            border: 3px solid var(--primary-strawberry);
+            box-shadow: 0 15px 35px rgba(255, 107, 107, 0.3);
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary-strawberry) 0%, var(--secondary-strawberry) 100%);
+            color: var(--white);
+            border-radius: 17px 17px 0 0;
+            border-bottom: 2px solid var(--primary-strawberry);
+        }
+
+        .modal-title {
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        .modal-body {
+            background: linear-gradient(135deg, var(--light-strawberry) 0%, var(--white) 100%);
+            padding: 25px;
+        }
+
+        .drug-info {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 2px solid var(--light-strawberry);
+        }
+
+        .drug-info h6 {
+            color: var(--dark-strawberry);
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .drug-description {
+            background: linear-gradient(135deg, var(--pink-light) 0%, var(--white) 100%);
+            border-radius: 15px;
+            padding: 20px;
+            border-right: 4px solid var(--primary-strawberry);
+        }
+
+        .modal-footer {
+            background: linear-gradient(135deg, var(--light-strawberry) 0%, var(--pink-light) 100%);
+            border-radius: 0 0 17px 17px;
+            border-top: 2px solid var(--primary-strawberry);
+        }
+
+        .btn-close {
+            filter: invert(1);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .table-responsive {
+                border-radius: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- خلفية الفراولة العائمة -->
+    <div class="strawberry-bg">
+        <i class="fas fa-seedling strawberry-icon"></i>
+        <i class="fas fa-leaf strawberry-icon"></i>
+        <i class="fas fa-seedling strawberry-icon"></i>
+        <i class="fas fa-leaf strawberry-icon"></i>
+        <i class="fas fa-seedling strawberry-icon"></i>
+    </div>
+<!-- أزرار الانتقال -->
+<div class="switch-buttons mb-3 text-center">
+    <a href="link-to-fungi.html" class="btn btn-primary me-2">
+        <i class="fas fa-spa me-1"></i> الانتقال إلى الحشرات
+    </a>
+     
+</div>
+
+    <div class="container">
+        <h1><i class="fas fa-seedling"></i>  أبو صلاح للاستعلامات فطريات</h1>
+        
+        <!-- تحذير الكلمات المحددة -->
+        <div id="warningAlert" class="warning-alert">
+            <h5><i class="fas fa-exclamation-triangle me-2"></i>تحذير مهم!</h5>
+            <p>الكلمة التي تبحث عنها تحتاج إلى معلومات أكثر تفصيلاً. يرجى زيارة الموقع الرسمي للحصول على معلومات كاملة.</p>
+            <a href="https://dms.moa.gov.jo/Pesticides_Inquiry/" target="_blank" class="btn-warning">
+                <i class="fas fa-external-link-alt me-2"></i>الذهاب للموقع الرسمي
+            </a>
+        </div>
+        
+        <div class="row search-box position-relative">
+            <div class="col-md-8 mb-2">
+                <input type="text" id="searchInput" class="form-control" placeholder="ابحث بالرقم التسلسلي أو الاسم أو أي كلمة">
+                <div id="autocomplete-list" class="autocomplete-items">
+                    
+                </div>
+            </div>
+            <div class="col-md-4 mb-2">
+                <button id="searchBtn" class="btn btn-primary w-100">
+                    <i class="fas fa-search me-2"></i>بحث
+                </button>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>رقم التسجيل</th>
+                        <th>الاسم الشائع</th>
+                        <th>الاسم التجاري</th>
+                        <th>الاسم المحلي</th>
+                        <th>المادة الفعالة</th>
+                        <th>الشركة</th>
+                        <th>تاريخ الانتهاء</th>
+                        <th>رابط PDF</th>
+                    </tr>
+                </thead>
+                <tbody id="dataTable">
+                    <tr>
+                        <td colspan="8" class="loading">
+                            <div class="spinner"></div>
+                            جاري تحميل البيانات...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal للوصف السريع -->
+    <div class="modal fade" id="drugModal" tabindex="-1" aria-labelledby="drugModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="drugModalLabel">
+                        <i class="fas fa-pills me-2"></i>معلومات الدواء
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modalBody">
+                    <!-- المحتوى سيتم إضافته ديناميكياً -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+                    <a href="#" id="modalPdfLink" target="_blank" class="btn btn-primary">
+                        <i class="fas fa-file-pdf me-2"></i>فتح PDF
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let data = [];
+
+        // جميع الكلمات المحددة (تحذير + autocomplete)
+        const allKeywords = [
+            "validamycin",
+            "azoxystrobin",
+            "triflumizole",
+            "triadimefon",
+            "tolclofos-methyl",
+            "tetraconazole",
+            "triadimenol",
+            "spiroxamine",
+            "fenhexamid",
+            "fenazaquin",
+            "diniconazole",
+            "chinomethionat",
+            "quinomethionate",
+            "epoxiconazole",
+            "fluopicolide",
+            "fluazinam",
+            "fluopyram",
+            "folpet",
+            "flutriafol",
+            "flusilazole",
+            "mandipropamid",
+            "mancozeb",
+            "ipflufenoquin",
+            "mepanipyrim",
+            "iminoctadine",
+            "hymexazole",
+            "captan",
+            "bupirimate",
+            "bitertanol",
+            "carbendazim",
+            "ametoctradin",
+            "zoxamide",
+            "trifloxystrobin",
+            "sulphur",
+            "tebuconazole",
+            "cymoxanil",
+            "difenoconazole",
+            "fosetyl-al",
+            "myclobutanil",
+            "propamocarb",
+            "penconazole",
+            "metalaxyl",
+            "fludioxonil",
+            "chlorothalonil"
+        ];
+
+        // الكلمات التي تحتاج تحذير خاص
+        const warningKeywords = [
+            'trifloxystrobin',
+            'sulphur',
+            'tebuconazole',
+            'cymoxanil',
+            'difenoconazole',
+            'fosetyl-al',
+            'myclobutanil',
+            'propamocarb',
+            'penconazole',
+            'metalaxyl',
+            'fludioxonil',
+            'chlorothalonil'
+        ];
+
+        // قاعدة بيانات الأوصاف السريعة
+        const drugDescriptions = {
+            'azoxystrobin': {
+                name: 'أزوكسستروبن',
+                type: 'مبيد فطري',
+                description: 'مبيد فطري واسع الطيف يستخدم لمكافحة العديد من الأمراض الفطرية في المحاصيل الزراعية. يعمل عن طريق تثبيط التنفس في الميتوكوندريا للفطريات.',
+                uses: 'مكافحة البياض الدقيقي، العفن الرمادي، والصدأ في الحبوب والخضروات',
+                safety: 'آمن نسبياً للإنسان والحيوان عند الاستخدام الصحيح'
+            },
+            'difenoconazole': {
+                name: 'ديفينوكونازول',
+                type: 'مبيد فطري',
+                description: 'مبيد فطري ثلاثي الأزول فعال ضد مجموعة واسعة من الفطريات المسببة للأمراض النباتية.',
+                uses: 'مكافحة البياض الدقيقي، العفن الرمادي، والصدأ',
+                safety: 'يجب ارتداء معدات الحماية الشخصية عند الاستخدام'
+            },
+            'tebuconazole': {
+                name: 'تيبكونازول',
+                type: 'مبيد فطري',
+                description: 'مبيد فطري ثلاثي الأزول يستخدم على نطاق واسع في حماية المحاصيل من الأمراض الفطرية.',
+                uses: 'مكافحة البياض الدقيقي، العفن الرمادي، والصدأ في الحبوب',
+                safety: 'يجب اتباع تعليمات الاستخدام بدقة'
+            },
+            'metalaxyl': {
+                name: 'ميتالاكسيل',
+                type: 'مبيد فطري',
+                description: 'مبيد فطري جهازي فعال ضد الفطريات البيضية (Oomycetes) مثل العفن المتأخر.',
+                uses: 'مكافحة العفن المتأخر في البطاطس والطماطم',
+                safety: 'يجب عدم استخدامه قبل الحصاد بفترة كافية'
+            },
+            'propamocarb': {
+                name: 'بروباموكارب',
+                type: 'مبيد فطري',
+                description: 'مبيد فطري جهازي فعال ضد الفطريات البيضية، خاصة العفن المتأخر.',
+                uses: 'مكافحة العفن المتأخر في الخضروات',
+                safety: 'آمن نسبياً مع فترة انتظار قصيرة'
+            },
+            'penconazole': {
+                name: 'بنكونازول',
+                type: 'مبيد فطري',
+                description: 'مبيد فطري ثلاثي الأزول فعال ضد البياض الدقيقي والعفن الرمادي.',
+                uses: 'مكافحة البياض الدقيقي في العنب والخضروات',
+                safety: 'يجب ارتداء معدات الحماية الشخصية'
+            },
+            'sulphur': {
+                name: 'الكبريت',
+                type: 'مبيد فطري طبيعي',
+                description: 'مبيد فطري طبيعي قديم الاستخدام، فعال ضد البياض الدقيقي والعث.',
+                uses: 'مكافحة البياض الدقيقي والعث في العنب والخضروات',
+                safety: 'آمن نسبياً ولكن قد يسبب تهيج للجلد والعيون'
+            },
+            'cymoxanil': {
+                name: 'سيموكسانيل',
+                type: 'مبيد فطري',
+                description: 'مبيد فطري جهازي فعال ضد العفن المتأخر والعفن المبكر.',
+                uses: 'مكافحة العفن المتأخر في البطاطس والطماطم',
+                safety: 'يجب اتباع تعليمات الاستخدام بدقة'
+            },
+            'myclobutanil': {
+                name: 'مايكلوبوتانيل',
+                type: 'مبيد فطري',
+                description: 'مبيد فطري ثلاثي الأزول فعال ضد البياض الدقيقي والعفن الرمادي.',
+                uses: 'مكافحة البياض الدقيقي في التفاح والعنب',
+                safety: 'يجب ارتداء معدات الحماية الشخصية'
+            },
+            'fludioxonil': {
+                name: 'فلوديوكسونيل',
+                type: 'مبيد فطري',
+                description: 'مبيد فطري فعال ضد العفن الرمادي والعفن الأزرق في التخزين.',
+                uses: 'معالجة البذور ومكافحة العفن في التخزين',
+                safety: 'يجب اتباع تعليمات الاستخدام بدقة'
+            },
+            'chlorothalonil': {
+                name: 'كلوروثالونيل',
+                type: 'مبيد فطري',
+                description: 'مبيد فطري وقائي واسع الطيف يستخدم في مكافحة العديد من الأمراض الفطرية.',
+                uses: 'مكافحة العفن المبكر والعفن المتأخر في الخضروات',
+                safety: 'يجب ارتداء معدات الحماية الشخصية الكاملة'
+            }
+        };
+
+        // البيانات الاحتياطية (تعمل محلياً)
+        const fallbackData =   `
+registrationNo,commonName,tradeName,localName,ai,company,expiry
+3830,Flutianil-5% W/V,Flute-5% EC,شركة الكروم للزراعة والتجارة,5%w/w,OAT Agrio co.ltd,31/1/2029
+4226,Amisulbrom,Leimay,شركة الطليعة لتكنولوجيا الزراعة,20% w/v,Nissan Chemical Corporation,22/9/2027
+2191,Azoxystrobin 255w/v,Extra-25% SC,المتقدمة لصناعة المبيدات الزراعية والعلاجات البيطر,25% W/V,CHEMVET.,14/09/2025
+3643,Azoxystrobin +Metalaxyl-M,Joint -SE,الاردنية لانتاج المبيدات,32.2% 12.5% W/V,الاردنية لانتاج المبيدات,18/11/2027
+3843,Azoxystrobin,Puma Super-SC,مؤسسة الأرض الخضراء للخدمات الزراعية,25%w/v,Ascot Pro-G limited,13/6/2022
+3759,Azoxystrobin- + Difenoconazole,Lacerta Maxx-32.5% SC,مجمع استرا الصناعي للاسمدة والمبيدات,12.5% + 20% (W/V),Astranova Tarim Ticaret Ve San A.S,10/1/20224
+4302,Azoxystrobin+Metalaxyl –M,Unizona,اريزونا المتحدة للصناعات البتركيماوية,28.2%+10.9%w/w,اريزونا المتحدة للصناعات البتركيماوية,غير منتهي
+3739,Azoxystrobin + Metalaxyl-M,Unifel 39.1 %SE,شركة القوافل الصناعية الزراعية,28.2% + 10.9% W/W,شركة القوافل الصناعية الزراعية,غير منتهي
+4025,Azoxystrobin+Difenconazole,Azofen- 32.5% SC,شركة مدماك لانتاج الاسمدة والادوية الزراعية والبيطرية,20% +12.5% w/v,Medmac,9/6/2026
+3721,Azoxystrobin 29.6%+ Flutriafol21.8%,Cruncher -51.4% SC,شركة مصانع الادوية البيطرية والزراعية /فابكو,29.6% + 21.8% W/V,شركة مصانع الادوية البيطرية والزراعية /فابكو,غير منتهي
+3843,Azoxystrobin,Puma Super-SC,مؤسسة الأرض الخضراء للخدمات الزراعية,25%w/v,Ascot Pro-G limited,13/6/2022
+3969,Azoxystrobin+Difenoconazole,Alstar Plus 32.5% SC,شركة الهلال الخصيب لانتاج الادوية البيطرية والزراعية,20%+12.5% (w/v),Fertile Provam,20/2/2030
+1,2,3,4,5,6,7
+2,3,4,5,6,7,8
+2130,Cyflufenamid + Triflumizole,Pancho-WDG,شركة الاشراق للزراعية والتجارة,3.4% + 15% W/W,NIPPON SODA,6/4/2030
+3195,Cyflufenamid +Triflumizole,Fenazole- WG,الشركة العربية لصناعة المبيدات والادوية البيطرية (مبيدكو ),3.5% + 15% W/W,الشركة العربية لصناعة المبيدات والادوية البيطرية (مبيدكو ),24/11/2028
+1317,Triadimefon,Dayton -25% WP,مؤسسه صناعات الكيماويات الزراعيه,25% W/W,مؤسسه صناعات الكيماويات الزراعيه,27/6/2024
+1466,triadimefon,adifon_25%wp,مصانع الادوية البيطرية والزراعية,25% W/W,VAPCO,غير منتهيه
+2082,Triadimefon-20% W/W,Trifoon-20% EC,شركة المدار لتجارة المواد الزراعية,20% W/W,JIANGSU KESHENG ZHENJIANG AGREEN,19/12/2024
+2220,Tolclofos-methyl 50%W/W,Rizomate-50% wp,العربيه لصناعة المبيدات والادوية البيطرية (مبيدكو),50% W/W,MOBEDCO,31/08/2025
+2221,Tolclofos-Methyl 10%W/W,Toprate-10%DP,العربية لصناعة المبيدات والادوية البيطرية مبيدكو,10% W/W,MOBEDCO,10/12/2025
+2917,Tolclofos-methyl 50%W/W,Hektolex 50 wp,الهدى للمواد الزراعية,50% W/W,HEKTAS TICARET T.A.S,27/2/2017
+2238,Tolclofos-methyl 50%W/W,Rizomac WP,مدماك لانتاج الاسمدة والادوية الزراعية,50% W/W,MEDMAC,10/05/2026
+4746,Tetraconazole+,DATCOM 100 EC,جزيرة الأمل,10% w/v+,,02/12/2029
+4654,Tetraconazole+,TETRAZOLE,شركة المصانع و الادوية البيطرية/ فابكو,%11.9 و/ح +,شركة مصانع المواد الزراعية والكيماوية /اجروكيم,25/07/2029
+655,Triadimenol-25% W/V,Bayfidan-25% EC,العربية للمستحضرات الطبية والزراعية,25% w/v,BAYER,12/02/2018
+1188,Triadimenol,Vydan-25% EC,شركة مصانع الادوية البيطرية والزراعية/فابكو,25% W/V,شركة مصانع الادوية البيطرية والزراعية/فابكو,8/5/2024
+2249,Triadimenol 25%W/V,Contramenol EC,البرج لصناعه المبيدا الزراعيه والبيطريه,25% w/v,ALBURJ.ة,27/06/2026
+3674,Triadimenol,Solorius -25% EC,شركة مجموعة منير سختيان,25% W/V,Menta Tarim LTD,12/3/2023
+4411,Triadimenol+,Simenol 25 % EC,شركة النشامى الزراعية,25%w/v+,-,11/02/2026
+3667,Triadimenol,Superol -25% EC,شركة الفيحاء الزراعية,25% W/V,Dogal Kimyevi Maddeler Ve Zirai Liaclor San Ve .Tic,6/12/2022
+2906,Triadimenol -25%W/V,Chemanol-25%EC,المتقدمة لصناعة المبيدات الزراعية والعلاجات البيطر,25% W/V,CHEMVET,غير منتهي
+1440,Triadimenol,Triadim 25 EC,العربيه لصناعه المبيدات والادويه البيطريه(مبيدكو),25%w/v,Mobedco,غير منتهي
+3985,spiroxamine,Prosper CS 300,الشركة العربية للمستحضرات الطبية والزراعية,30%(W/V),Bayer AG,31/5/2027
+3147,Spiroxamine 50%,Spirovap-50%EC,شركة مصانع الادوية البيطرية والزراعية /فابكو,50% W/V,شركة مصانع الادوية البيطرية والزراعية /فابكو,غير منتهي
+3679,Tolfenpyrad,Bemex -15% EC,شركة مدماك لانتاج الاسمدة والادوية الزراعية,15% W/V,شركة مدماك لانتاج الاسمدة والادوية الزراعية,غير منتهي
+4441,Tolfenpyrad+,Tolven15%EC,مؤسسة الوفق الزراعية,15%w/w+,,21/11/2028
+4724,Tolfenpyrad+,SIFUN,مدرجات للزراعة,15% W/W+,,13/11/2029
+4747,Tolfenpyrad+,AIMPYRAD 15% EC,شركة عبد الحافظ الزراعيه,15% W/W+,,29/07/2029
+4224,Tolfenpyrad,Toledo,مؤسسة صناعات الكيماويات الزراعية,15.5% w/v,ACI,غير منتهي
+4139,Tolfenpyrad,Danti-Danti,شركة سلسال للمواد الزراعية,15% w/w,Hailir pesticides and chemicals Group co.ltd,29/1/2029
+2582,Tolfenpyrad,Hachi-Hachi-15% EC,الكروم للزراعه والتجارة,15% W/W,NIHON NOHYAKU/Mitsui andco.ltd,23/4/2030
+4069,Tolfenpyrad,Verzachi 15% EC,شركة النخبة لصناعة الاسمدة الزراعية والادوية البيطرية (نيوفاك),15% w/v,Nuvac,غير منتهي
+4512,Tolfenpyrad+,Royal Tolfen,خضارات رويال جرين,%15 w/w+,,12/12/2028
+4730,Tolfenpyrad+,Purple 15% EC,مصنع جراسيا,15% W/W+,شركة جراسيا للصناعات الزراعية,08/10/2029
+4344,Pyraziflumid,Parade,شركة الاشراق للزراعة والتجارة,20% w/w,Nihon Nohyaku CO.LTD.,19/6/2028
+1947,Propiconazole,Propivap-25%EC,شركة مصانع الادوية البيطرية والزراعية(فابكو),25% W/V,شركة مصانع الادوية البيطرية والزراعية(فابكو),غير منتهي
+2423,Propiconazole,Telemac -25%EC,مدماك لانتاج الاسمدة والادوية الزراعية والبيطرية,25% W/V,MEDMAC,غير منتهي
+4189,Difenoconazole +Propiconazole,Last Point,116,22.8%+22.8%W/V,القوافل الصناعية الزراعية,غير منتهيه
+4473,Propiconazole+,PROGREEN EC,الادارة المتكاملة لخدمات الصحة العامة,25% W/V+,,10/12/2028
+2925,Difenconazole + Propiconazole,Ecormon-50%EC,المنطلق الزراعية,25%+25% W/V,JIANDSU FREY AGROCHEMICALS CO.LTD.,6/12/2026
+2062,Propiconazole,Conyam *-25% EC,شركة اليمامة لصناعة المواد الزراعية,25% W/V,شركة اليمامة لصناعة المواد الزراعية,7/7/2029
+3078,Difenconazole +Propiconazole,Green Mure-30% EC,شركة الدائرة الخضراء الزراعية,15% + 15% W/V,ZHEJIANG SEGA SCIENCE & TECH.,5/5/2025
+3391,Propiconazole 15%+Difenoconazole 15%w/w,Genex-30% EC,شركة سلسال للمواد الزراعية,15 %+ 15% W/W,Qingdao Audis Bio-Tech Co LTd,07/07/2026
+2523,Proquinazid,Talendo-20% EC,شركة المواد الزراعية مقدادي,20% W/V,DUPONT,6/1/2023
+2711,Prochloraz 40% w/v,Event EC,مدماك لانتاج الاسمدة والادوية الزراعية والبيطرية,40%W/V,MEDMAC,17/06/2025
+1522,prochloraz 25% w/v,master EC,مصانع الادوية البيطرية والزراعية (فابكو),25%W/V,VAPCO,غير منتهيه
+4097,Cyflufenamid +Difenoconazole,Dynali 90 DC,شركة مازن القواسمة واولاده,3% +6% W/V,Chemark ZRT For Sengenta,20/10/2026
+2130,Cyflufenamid + Triflumizole,Pancho-WDG,شركة الاشراق للزراعية والتجارة,3.4% + 15% W/W,NIPPON SODA,6/4/2030
+3180,Cyflufenamid+Difenoconazole 3%+6%W/V,Dynail90DC,الاتحادالزراعي الاردني,9%w/v,SYNGENTA,28/5/2019
+3195,Cyflufenamid +Triflumizole,Fenazole- WG,الشركة العربية لصناعة المبيدات والادوية البيطرية (مبيدكو ),3.5% + 15% W/W,الشركة العربية لصناعة المبيدات والادوية البيطرية (مبيدكو ),24/11/2028
+4719,Azoxystrobin+Cyproconazole+,Sublime,الحديثة لصناعة الأدوية البيطرية والمبيدات الزراعية,20% (w/v)+8% (w/v)+,شركة الحديثة لصناعة الأدوية البيطرية والمبيدات الزراعية,14/01/2030
+4208,Cyproconazole,Chemaltozole,المتقدمة لصناعة المبيدات الزراعية والعلاجات البيطرية,10%W/V,Chemvet,غير منتهي
+3222,Cyproconazole,Bastyl-10% SL,مدماك لانتاج الاسمده والادوية الزراعية والبيطرية,10% W/V,مدماك لانتاج الاسمده والادوية الزراعية والبيطرية,24/9/2029
+2576,Diniconazole,Dinichem- 5% EC,الشركة المتقدمة لصناعة المبيدات الزراعية,5% W/V,الشركة المتقدمة لصناعة المبيدات الزراعية,19/8/2023
+4701,Dodine+,Mobedine 40% SC,الشركة العربية لصناعة المبيدات/مبيدكو- المكاتب,40 W/V+,العربية لصناعة المبيدات و الأدوية البيطرية-مبيدكو-,27/06/2029
+4725,Dodine+,RUKHSAR,شركة البيداء الزراعية,65 % W/W +,,10/12/2029
+4460,Dodine+,DODIVAP-40.7% SC,شركة المصانع و الادوية البيطرية/ فابكو,40.7% w/v+,شركة المصانع و الادوية البيطرية/ فابكو,26/12/2028
+2242,Epoxiconazole 12.5%W/V,Epox SC,مدماك لانتاج الاسمدةوالادوية الزراعيةوالبيطرية,12.5% W/V,MEDMAC,10/05/2026
+2254,Epoxiconazole 12.5%W/V,Oblate-12.5% SC,مصانع الادويه البيطريه والزراعيه(فابكو),12.5% W/V,VAPCO,10/05/2026
+2311,Fenamidone + Propamocarb HCL,Consento-45% SC,الشركة العربيه للمستحضرات الطبيه والزراعيه,7.5% + 37.5% W/V,BAYER,30/9/2023
+3837,Fenazaquin-20% W/V,Value Plus 20%SC,شركة البرج لصناعة المبيدات الزراعية والبيطرية,20%w/v,شركة البرج لصناعة المبيدات الزراعية والبيطرية,11/9/2029
+3837,Fenazaquin-20% W/V,Value Plus-20% SC,شركة البرج لصناعة المبيدات الزراعية والبيطرية,20%w/v,شركة البرج لصناعة المبيدات الزراعية والبيطرية,11/9/2024
+2421,Fenazaquin 10%W/V,Magister 100 ec,مؤسسة إرشاد الزراعية,10% W/V,DOW-AGROSCIENCE / GOWAN CO.,08/05/2018
+2836,Fenazaquin-10% W/V,Fenzak-10% EC,شركة مدماك لانتاج الاسمدة والادوية الزراعية والبيط,10% W/V,MEDMAC,غير منتهي
+3235,Fenazaquin-10% W/V,Queen -10% EC,انتاج مؤسسه صناعات الكيماويات الزراعيه,10%,ACI,25/11/2029
+3411,Fenazaquin 10%w/v,Major-10%EC,جراسيا للصناعات الزراعية,10% W/V,JARASEA,31/01/2026
+3005,Fenazaquin,Pride-20% SC,الشركة الاردنية لانتاج المبيدات الحشرية والعلاجات الزراعية,20% W/V,SBM/ Gowan Crop Protection,31/8/2026
+3442,Fenazaquin 20% w/v,Tomquin SC,شركه الدائرة الخضراء الزراعيه,20% W/V,SAFA Tarim A.S,09/05/2021
+4480,Fenazaquin+,VAPISTER- 20.4% SC,شركة مصنع الأدوية البيطرية والزراعية/فابكو,20.4%W/V+,فابكو- شركة مصانع الأدوية البيطرية والزراعية ذ.م.م,09/01/2029
+3841,Fenhexamid-50% W/V,Darkeven-50% SC,Astranova Tarim Ticaret Ve San A.S,50%,شركة مجمع استرا الصناعي للاسمدة والمبيدات الزراعية (استراكيم),
+3841,Fenhexamid-50% W/V,Darkeven-50% SC,Astranova Tarim Ticaret Ve San A.S,50%,شركة مجمع استرا الصناعي للاسمدة والمبيدات الزراعية (استراكيم),17/5/2027
+4238,Fenhexamid,Fareed,مؤسسة صناعات الكيماويات الزراعية,50%W/V,ACI,غير منتهي
+4430,Fenhexamid+,CORR?DOR 50 SC,شركة الورقة الزرقاء الزراعية للاسمدة والمبيدات,50% WV+,Agrobest grup tarim ilaclari,22/4/2030
+3281,Fenhexamid 50%w/v,Ranger_50%SC,الشركة العربية لصناعة المبيدات والادوية البيطرية,50% W/V,MOBEDCO,26/8/2029
+3994,Fenhexamid,Flare-50% WDG,شركة مصانع الأدوية البيطرية والزراعية (فابكو),50% (w/w),Agrochem,24/3/2026
+4570,Fenhexamid+,Mouldor 50 % SC,شركة البرج لصناعة المبيدات,50% w/w+,البرج لصناعة لمبيدات الزراعية والبيطرية,21/02/2029
+4619,Fenhexamid+,Buracia 50%SC,المنطلق الزراعية,50%w/v+,,10/9/2029
+4231,Propamocarb HCl +Fluopicolide,Multiguard-SC,الشركة الأردنية الحديثة للتجارة الدولية,62.5%+6.25%W/V,Agri Sciences,5/11/2027
+4050,Propamocarb hydrochloride + Fluopicolides,Libra 68.75% SC,مؤسسة صناعات الكيماويات الزراعية,62.5% +6.25% w/v,ACI,غير منتهيه
+4360,Dimethomorph+Fluazinam,Diflunam 40%SC,شركة مصانع الأدوية البيطرية والزراعية/فابكو,20%+20%W/V,شركة مصانع الأدوية البيطرية والزراعية/فابكو,غير منتهي
+4270,Fluazinam20%+Cymoxanil,Turn 50% SC,شركة البرج لصناعة المبيدات الزراعية والبيطرية,20%+30%W/V,ALBURJ,غير منتهي
+4270,Fluazinam20%+Cymoxanil,Turn 50% SC,شركة البرج لصناعة المبيدات الزراعية والبيطرية,20%+30%W/V,ALBURJ,غير منتهي
+4423,Fluazinam+,FLUZAIN,الحديثة لصناعة الأدوية البيطرية والمبيدات الزراعية,50% (W/V)+,الشركة الحديثة لصناعة الادوية البيطرية والمبيدات الزراعية,01/08/2028
+4458,Dimethomorph+Fluazinam+,ARZDIME,شركة الارز الزراعية,20%w/v+20%w/v+,,17/05/2028
+2905,Fluazinam,Nando -50% SC,الاسمده المتحده,50% W/V,NUFARM,31/8/2025
+4058,Fluazinam,Fluguard,شركة فالكون,50% w/v,Shanxi Hongyang Chemicals Co.ltd,19/12/2027
+3506,Fluazinam 50%W/V,Azinam-50% SC,مؤسسة صناعات الكيماويات الزراعية,50% W/V,مؤسسة صناعات الكيماويات الزراعية,10/10/2026
+4472,Azoxystrobin+Fluazinam+,Vendetta,مؤسسة العطاء,12% w/w+30% w/w+,,15/4/2027
+4693,Fluopyram+Trifloxystrobin+,Pona 50% SC,شركة مصنع معادن لإنتاج المبيدات والأسمدة,25% w/v+25% w/v+,شركة مصنع معادن لإنتاج المبيدات والأسمدة,19/09/2029
+4778,Fluopyram+Trifloxystrobin+,Flubin,شركة الفداء للأدوية البيطرية والمبيدات الزراعية,25% (W/V)+25% (W/V)+,شركة الفداء للأدوية البيطرية والمبيدات الزراعية,08/04/2030
+3761,Fluopyram- + Trifloxystrobin,Luna sensation- SC,العربية للمستحضرات الطبية والزراعية,25% + 25% (W/V),Bayer AG,21/11/2028
+3580,Fluopyram,Velum prime sc,الشركة العربيه للمستحضرات الطبيه,40% w/w,Bayer AG,15/11/2026
+4600,Fluopyram+,FLUMON-49.9% SC,شركة مصنع الأدوية البيطرية والزراعية/فابكو,49.9% W/V+,فابكو,20/02/2029
+4603,Fluopyram+,Fyram,مؤسسة صناعات الكيماويات الزراعية/ سلامة الحياري,50%w/v+,مؤسسة صناعات الكيماويات الزراعية,26/03/2029
+1164,Folpet,Foldan-50%WP,مصانع الادوية البيطرية والزراعية/ فابكو شركة,50% W/W,مصانع الادوية البيطرية والزراعية/ فابكو شركة,6/3/2029
+3383,Fosetyl-AL 50%+Folpet 25%+Cymoxanil 4%w/w,Fosbel-Extra-WP,شركه سيجال للمواد الزراعيه,50%+ 25%+ 4% (W/W),probelte. S.a.,2025/3/15
+3721,Azoxystrobin 29.6%+ Flutriafol21.8%,Cruncher -51.4% SC,شركة مصانع الادوية البيطرية والزراعية /فابكو,29.6% + 21.8% W/V,شركة مصانع الادوية البيطرية والزراعية /فابكو,غير منتهي
+4497,Azoxystrobin+Flutriafol+,Torbo 51.4% SC,شركة مصنع معادن لإنتاج المبيدات والأسمدة,29.6 w/v+21.8 w/v+,شركة مصنع معادن لإنتاج المبيدات والأسمدة,26/11/2028
+4041,Flutriafol,Flow UP,شركة فالكون الزراعية,25% w/v,Yanchreng limin chemical co .ltd,27/9/2029
+3632,Flutriafol,Fexir -25% SC,شركة الدائرة الخضراء الزراعية,25% W/V,"Shandong United Pesticide Industry Co/Shandong Sino-agri United Biotechnology Co., LTD",28/8/2025
+4631,Flutriafol+,FOLIMAR 250 SC,مدرجات للزراعة,25% و/ح+,,30/08/2026
+2712,Flusilazole,Jadara,مدماك لانتاج الاسمدة والادوية الزراعية والبيطرية,,,
+2325,Flusilazole,Noon Star,مؤسسةكريستال للزراعة والتجارة,,,
+4055,picarbutrazox,Neofine SC,شركة نبات للزراعة والتجارة,5% w/w,Nippon Soda CO.Ltd,14/7/2026
+4055,picarbutrazox,Neofine SC,شركة نبات للزراعة والتجارة,5% w/w,Nippon Soda CO.Ltd,14/7/2026
+3515,Penthiopyrad 20%w,Affet 20% SC,شركة المواد الزراعية (مقدادي,20% W/W,Mitsui Chemical Agro -Inc,22/7/2030
+218,Pencycuron-25% W/W,Cycuron-25%WP,شركه مصانع الادويه البيطريه والزراعيه (فابكو),25% W/W,VAPCO,غير منتهي
+1598,pencycuron 12.5%W/V,monceren DS,العربية لمستحضرات الطبيةوالزراعية,12.5% W/W,BAYER,03/12/2019
+4682,Mandipropamid+Difenconazole+,Mandi stop 50% SC,شركة مصنع معادن لإنتاج المبيدات والأسمدة,25% w/v+25% w/v+,شركة مصنع معادن لإنتاج المبيدات والأسمدة,17/10/2029
+2940,Mandipropamid+Difenconazole,Pergado Top -50% SC,شركة الجبالي الزراعية,25%+25% W/V,SYNGENTA,28/11/2027
+2503,Mandipropamid,Revus-25% SC,الاتحاد الزراعي الاردني المحدودة المسؤوليه,25% W/V,SYNGENTA,19/8/2028
+4615,Mandipropamid+oxathiapiprolin+,ORONDIS® ULTRA,شركة مازن القواسمي واولاده,25% w/v+3% w/v+,,26/05/2029
+4194,Biscalid +Kresoxim-Methyl,Loop 30%SC,مؤسسة صناعات الكيماويات الزراعية,30%W/V,مؤسسة صناعات الكيماويات الزراعية,غير منتهي
+3327,Kresoxim-Methyl 30% w/w,Metalo-30% WP,شركه السابله للزراعه والتجارة,30% W/W,Jingbo agrochemicals technology co. ltd/Beta Chemicals LTD,10/06/2020
+3423,Boscalid+kresoxim-methyl 20%+10%W/V,Carlo-30%sc,البرج لصناعة المبيدات الزراعية والبيطرية,20%+10% W/V,ALBURJ,11/02/2026
+3422,Kresoxim-methyl 50%W/W,Scaby-50% WDG,المجموعه التخصصيه للادويه البيطريه والزراعيه,50% w/w,"Lier Cropsciences Co., LTD",17/04/2027
+4585,Boscalid+Kresoxim-Methyl+,KRESOLID-30% SC,شركة المصانع والأدوية البيطرية /فابكو,20% w
++10% w
++,شركة المصانع و الادوية البيطرية/ فابكو,23/04/2029
+4260,Ipflufenoquin,Migiwa,شركة إشراقة عمان لتجارة المواد الزراعية,20%w/w,Nippon Soda,17/11/2027
+4260,Ipflufenoquin,Migiwa,شركة إشراقة عمان لتجارة المواد الزراعية,20%w/w,Nippon Soda,17/11/2027
+4320,Mepanipyrim,Frupica 40SC,الطليعة لتكنولوجيا الزراعة,40%W/W,Kumiai Chemical Industry Co.Ltd.,21/3/2028
+1225,Iminoctadine tris,Bellkute -40% WP,نبات للزراعة والتجارة,40% W/W,NIPPON SODA,20/11/2026
+992,Hymexazole-30% W/V,Tachigazole-30% SL,شركة مصانع الادوية البيطرية والزراعية (فابكو),30% w/v,VAPCO,18/10/2025
+2652,Hymexazole 30% w/v,Mexazol-30% SL,شركة مصانع المواد الزراعية والكيماوية م.م,30% W/V,AGROCHEM,14/1/2030
+2701,Hymexazole 30% w/v,Hyxatin _30% SL,الاردنية لانتاج المبيدات الحشرية والعلاجات الزراعي,30% W/V,ATI,09/11/2025
+4214,Hymexazole,Move- Hymexazole30%SL,الحديثة لصناعة الأدوية البيطرية والمبيدات الزراعية,30%W/V,Movetco,غير منتهي
+4061,hymexazole,Hexagreen 36% SL,اجري ساينس تاريم /الشركة الاردنية,36%W/V,AGRI SCIENCES Tarrm,غير منتهي
+4061,hymexazole,Hexagreen 36% SL,اجري ساينس تاريم /الشركة الاردنية,36% w/v,AGRI SCIENCES Tarrm,غير منتهي
+1846,Hymexazole 30% w/v,Himex SL,مدماك لانتاج الاسمدة والادوية الزراعية والبيطرية,30% w/v,MEDMAC,27/07/2026
+2116,Hymexazole,Tachichem-30% SL,الشركة المتقدمة لصناعة المبيدات الزراعية والعلاجات البيطرية,30% w/v,الشركة المتقدمة لصناعة المبيدات الزراعية والعلاجات البيطرية,30/6/2029
+3209,Hymexazole,Promexol-30% SL,الهلال الخصيب لانتاج الادوية البيطرية والزراعية,30% W/V,الهلال الخضيب لانتاج الادوية البيطرية والزراعية,31/3/2029
+3236,Hymexazole-30% W/V,Minim-30%SL,البرج لصناعة المبيدات الزراعيةوالبيطرية,30%w,Al-Burj,22/10/2029
+900,Captan 50%,Criptan-50% WP,شركة مصانع الادوية البيطرية,50% W/W,VAPCO,غير منتهي
+3877,Captan-80% W/W,Capten-80% WP,مؤسسة الصناعات الكيماويات الزراعية,80%w/w,مؤسسة الصناعات الكيماويات الزراعية,28/1/2030
+3055,Bupirimate,Nimrod_25%EC,الشركة الشرقية,25% W/V,AAKO Co. BV,31/5/2025
+3315,Bupirimate 25%W/V,Danty-25%EC,شركة جراسيا للصناعات الزراعية,25% W/V,JARASEA,17/6/2030
+3596,Bupirimate,Pure-25% EC,مؤسسة صناعات الكيماويات الزراعية,25% W/V,ACI,غير منتهي
+1470,Bitertanol,Titanol-25% WP,شركه مصانع الادويه البيطريه والزراعية (فابكو),25% W/W,VAPCO,غير منتهي
+2957,Ametoctradin 30%+Dimethomorph 22.5%w/v,Orvego SC,مجموعةمنير سختيان,30+22.5%,BASF,30/1/2019
+4720,Cymoxanil+zoxamide+,ZOXANIL-66% WDG,شركة مصانع المواد الزراعية/ اجروكم,w/w 33%+ w/w 33% +,شركة مصانع المواد الزراعية/ اجروكم,03/11/2029
+4085,Zoxamide + Cymoxanil,Reboot,الشركة الأردنية لإنتاج المبيدات الحشرية والعلاجات الزراعية,33%+33% w/w,Gowan Crop protectim /solfotecniqa italiang,30/11/2026
+126,Cyprodinil + Fludioxonil,Switch-62.5% WG,الاتحاد الزراعي الاردني المحدوده المسؤوليه,37.5+25% w/v,SYNGENTA,31/10/2019
+4739,Fludioxonil+Cyprodinil+,CyproFlu 62.5 % WG,الزيتونة لانتاج المبيدات والمخصبات الزراعية,25 % w/w +37.5% w/w+,الزيتونة لانتاج المبيدات والمخصبات الزراعية,02/12/2029
+4152,Fludioxonil 10%w/v,Monster 10%FS,ACI,10%w/v,aci,غير منتهيه
+4251,Cyprodinil + Fludioxonil,Mantar 62.5% WG,شركة اليمامة لصناعة المواد الزراعية المحدودة,37.5%+25%W/V,شركة اليمامة لصناعة المواد الزراعية المحدودة,غير منتهي
+3984,Fludioxonil,Lorest 10% FS,شركة اليمامة لصناعة المواد الزراعية,10%(w/v),Yamama,19/11/2025
+4065,Fludioxonil + Metalaxyl-M,Supernil 3.5%,شركة اليمامه لصناعة المواد الزراعية,2.5% +1 w/v,Al-yamama,غير منتهي
+3701,Cyprodinil + Fludioxonil,Swing- 62% WG,شركة عبد الحافظ الزراعية,37% + 25% W/W,Hangzhou Udragon Chemical Co.ltd/Agrodragon Co.ltd,13/2/2027
+3709,Cyprodinil + Fludioxonil,Yekdoz -WG,مجمع استرا الصناعي,37.5% + 25% W/W,ASTRANOVATARIM TICARET VE SANI A.S,21/11/2029
+3626,Cyprodinil + Fludioxonil,Fluoxinil- 62.5% WDG,شركة مصانع الادوية البيطرية والزراعية (فابكو),37.5% + 25% W/W,Vapco,غير منتهي
+4003,Cyprodinil + Fludioxonil,Switch 62.5 WG,شركة مازن القواسمة واولاده,37.5% +25% w/w,Gowan/ Syngenta Agro AG Exwold/ Syngenta Agro AG,16/6/2026
+960,METALAXYL-5%W/W,VACOMIL-5% GR,شركة مصانع الادوية البيطرية فابكو,55 w/w,VAPCO,25/07/2026
+930,Metalaxyl + Copper oxychloride,Vacomil plus- 50%WP,شركة مصانع الادوية البيطرية والزراعية/ فابكو,15+35% W/W,شركة مصانع الادوية البيطرية والزراعية/ فابكو,31/3/2029
+1517,Metalaxyl +Copperoxychloride,Aromil-plus - WP,الشركة العربية لصناعة المبيدات,15 + 35 %w/w,MOBEDCO,غير منتهي
+1669,Metalaxyl-35%,Vacomil_35 WP,شركة مصانع الادوية البيطرية والزراعية ( فابكو),35% W/W,شركة مصانع الادوية البيطرية والزراعية ( فابكو),22/6/2024
+1165,Metalaxyl + Copper Oxychloride,Agromil-Plus 50% WP,شركة مصانع المواد الزراعية والكيماوية /اجروكيم,15 + 35% W/W,شركة مصانع المواد الزراعية والكيماوية /اجروكيم,23/1/2029
+2183,Metalaxyl 15% +copper oxychloride 35% w/w,Acimeltox WP,مؤسسة صناعات الكيماويات الزراعية,15+35%w/w,ACI,14/9/2025
+3643,Azoxystrobin +Metalaxyl-M,Joint -SE,الاردنية لانتاج المبيدات,32.2% 12.5% W/V,الاردنية لانتاج المبيدات,18/11/2027
+4302,Azoxystrobin+Metalaxyl –M,Unizona,اريزونا المتحدة للصناعات البتركيماوية,28.2%+10.9%w/w,اريزونا المتحدة للصناعات البتركيماوية,غير منتهي
+3739,Azoxystrobin + Metalaxyl-M,Unifel 39.1 %SE,شركة القوافل الصناعية الزراعية,28.2% + 10.9% W/W,شركة القوافل الصناعية الزراعية,غير منتهي
+3912,Azoxystrobin-28.2% + Metalaxyl-M 10.8% W/V,Fortal-39%SE,شركة اليمامة لصناعة المواد الزراعية,39%,,
+630,Penconazole-10% W/V,Topas-10%EC,شركة الاتحاد الزراعي الارني,10% W/V,SYNGENTA,31/05/2028
+1954,Penconazole,Byadex-10% EC,شركة مدماك لانتاج الاسمده والادوية الزراعية والبيطرية,10% W/V,شركة مدماك لانتاج الاسمده والادوية الزراعية والبيطرية,غير منتهي
+3975,Penconazole,Kenzo 10% EC,شركة النخبة لصناعة الاسمدة الزراعية والادوية البيطرية (نيوفاك),10%(w/v),Nuvac,9/11/2025
+4276,Penconazole,Pako100EC,مدرجات للزراعة,10%w/v,Jiangsu Heben Pesticide&Chemical Co.,
+4276,PENCONAZOLE,PAKO 100EC,مدرجات للزراعة,10%W/V,JIANGSU HEBEN PESTCIDE &Chemic CHEMICAL CO LTD,24/7/2024
+4111,Penconazole,Conapass 10% EC,مؤسسة كريستال للزراعة والتجارة,10% w/v,jiangsu Heben Biochemical Co.ltd,24/7/2024
+2314,Penconazole- ec,Top-has 10% EC,عبد الحافظ الزراعية,10% W/V,FERTIAGRO PTE LTD,17/12/2026
+2870,Penconazole 10% w/v,Forbaz-10% EC,مؤسسة صناعات الكيماوياتالزراعية,10% W/V,مؤسسة صناعات الكيماوياتالزراعية,غير منتهية
+3378,Penconazole 10%w/v,Montazole,مؤسسه غسان بليبله للاستيراد والتصدير,10% W/V,MONTAJAT VET.,09/06/2020
+3916,Penconazole,Kenzol,الشركة الحديثة لصناعة الادوية البيطرية والمبيدات الزراعية,10%w\\v,Movetco,03/09/2025
+1089,propamocarb HCL,Proplant,مؤسسة الارض الخضراء للخدمات الزراعيه,,Arysta Life Science,15/3/2017
+2214,Propamocarb Hydrochloride 72.2%w/v,Simocarb SL,شركة النشامى الزراعية,72.2% W/V,SINO AGRO-CHEMICAL,27/07/2020
+3778,Propamocarb HCL,Rival-72.2% SL,شركة عبد الحافظ الزراعية,72.2% W/V,Agria S.A,15/6/2026
+3779,Propamocarb HCL + Chlorothalonil,Modem-75% SC,شركة البرج لصناعة المبيدات الزراعية والبيطرية,37.5% 37.5% ( W/V),شركة البرج لصناعة المبيدات الزراعية والبيطرية,14/3/2024
+4322,Propamocarb HCL,Pivicon SL,شركة الاشراق للزراعة والتجارة,72.2%W/V,Jiangsu Heben Biochemical Co.,28/8/2025
+4708,propamocarb HCL+Fluopicoilde+,Master -Pro 68.75%SC,شركة البرج لصناعة المبيدات,62.5% w/v +6.25% w/v +,البرج لصناعة لمبيدات الزراعية والبيطرية,08/10/2029
+4207,Propamocarb Hydrochloride,Altacarp,فالكون الزراعية,72.2%W/V,Shangdong United Pesticide Industry Co.Ltd.,17/11/2028
+4132,Propamocarb Hydrochloride,Promochem SL,المتقدمة لصناعة المبيدات الزراعية والعلاجات البيطرية (كيمفيت),72.2%W/V,chemvet,غير منتهيه
+4170,Propamocarb HCL,Jaco 72.2%SL,شركة جعفر الكردي وشركاه,72.2%W/V,Zhejiang Sega Science And Technology Co.Ltd.,22/6/2030
+4242,propamocarb HCL,Proyza 72SL,شركة مجمع استرا الصناعي للأسمدة والمبيدات الزراعية,72.2%W/V,Astranova Tarim,14/5/2027
+1965,Myclobutanil 25%w/w,Myclo 25 EC,المدار لتجارة المواد الزراعية,25% W/W,YIXING BIOCHEMICAL / ZHENJIANG AGREEN CO.,11/12/2023
+2541,Myclobutanil,Mycotan -12.5% EC,البرج لصناعه المبيدات الزراعيه والبيطريه,12.5% W/V,البرج لصناعه المبيدات الزراعيه والبيطريه,28/7/2029
+3786,Myclobutanil,Nu-Nile-25% EC,شركة النخبة لصناعة الاسمدة الزراعية والادوية البيطرية,25% W/W,شركة النخبة لصناعة الاسمدة الزراعية والادوية البيطرية,14/3/2029
+4367,Myclobutanil,MYCLOSYS,مؤسسة النشامى الزراعية,24%W/V,"YIFAN BIOTECHNOLOGY GROUP CO., LTD.",6/7/2028
+1747,Myclobutanil,Mydragon-25% EC,مؤسسه العطاء الزراعيه,25% W/V,YIFAN Biotechnology group CO./AGRODRAGON,11/12/2023
+2341,Myclobutanil,AgrostineForte-25% EC,المجموعة التخصصية للادوية البيطرية والزراعية,25% W/V,Yifan Biotechnology Group Co.LTD/Chongqing Shining Fine Chemicals Co.LTD,11/12/2023
+2621,Myclobutanil 25% w/v,Jinzo EC,شركة كريستال للزراعة والتجارة,25% W/V,"Yifan Biotechnology Group Co,LTD/Zhenjiang Agreen Company",11/12/2023
+2865,Myclobutanil,Tami -25% EC,نعيم الحافظ وشريكه,25% W/V,yifan Biotechnology Group Co. LTD,11/12/2023
+2919,Myclobutanil,Colonel -12.5% EC,مدماك لانتاج الاسمدة والادويه الزراعيه,12.5% W/V,MEDMAC,غير منتهي
+3084,Myclobutanil,Yamaclonil- 25% EC,اليمامة لصناعة المواد الزراعية المحدودة,25% W/V,اليمامة لصناعة المواد الزراعية المحدودة,غير منتهي
+1339,fosetyl-aluminium 80% w/w,valete-80% WP,مصانع الادوية البيطرية والزراعية (فابكو),80% W/W,VAPCO,09/10/2025
+2190,Fosetyl-Aluminium 80%w/w,Fosal-80% WP,شركه المجموعه العربيه للانتاج والتزويد الزراعي,80% W/W,SHANDONG HUAYANG AGRO DRAGON CO.,25/10/2026
+1510,Fosetyl-Aluminium 80%W/W,Fostar-80 WP,العربيه لصناعه المبيدات والادويه البيطرية (مبيدكو),80% W/W,العربيه لصناعه المبيدات والادويه البيطرية (مبيدكو),غير منتهي
+4024,Fosetyl-aluminium,Sifota 80% WP,مؤسسة الكروم للزراعه والتجارة,80% w/w,Zhejiang jiahua chemical Co.Ltd,17/12/2023
+3863,Fosetyl-Aluminium 80%w/w,Arzfostyl-80%WG,شركة الأرز الزراعية,80%WG,Limin chemical Biotechnology Co. Ltd,31/12/2021
+4274,Fosetyl-Aluminium,Veliyette,شركة الورقة الزرقاء,80% w/w,Agrobest Grup Tarim,11/9/2029
+2454,Fosetyl-Aluminium 80%w/w,Supafole 80 WP,عبد الحميد عبد الحافظ,80% W/W,JINTIN XINGDA CHEM./ ZHENJIANG INTER,16/1/2019
+3094,Fosetyl-Aluminum,Setamin-80% WP,مدماك لانتاج الاسمدة والادوية الزراعيةوالبيطرية,80% W/W,مدماك لانتاج الاسمدة والادوية الزراعيةوالبيطرية,19/8/2028
+3383,Fosetyl-AL 50%+Folpet 25%+Cymoxanil 4%w/w,Fosbel-Extra-WP,شركه سيجال للمواد الزراعيه,50%+ 25%+ 4% (W/W),probelte. S.a.,2025/3/15
+3943,Fosetyl-Al.,Activex-80%WG,شركة العلوم لصناعة الادوية والاسمدة الزراعية,80%ww,Agri sciences Ltd,21/12/2027
+662,Difenoconazole-25% W/V,Score_25% EC,شركة الاتحاد الزراعي الاردني المحدودة المسؤولية,25% W/V,chemark zrt hrsz/syngenta,31/12/2029
+3759,Azoxystrobin- + Difenoconazole,Lacerta Maxx-32.5% SC,مجمع استرا الصناعي للاسمدة والمبيدات,12.5% + 20% (W/V),Astranova Tarim Ticaret Ve San A.S,10/1/20224
+3697,Difenoconazole,knoxboro- 25% EC,الشركة الاردنية الحديثة للتجارة الدولية,25%W/V,Agriscience LTD,24/4/2028
+3839,Difenoconazole-25%w/v,Antalia-250 EC,مجمع استرا الصناعي للاسمدة والمبيدات,25%w/v,Astranova Tarim Ve.San.As,4/4/2026
+3969,Azoxystrobin+Difenoconazole,Alstar Plus 32.5% SC,شركة الهلال الخصيب لانتاج الادوية البيطرية والزراعية,20%+12.5% (w/v),Fertile Provam,20/2/2030
+4097,Cyflufenamid +Difenoconazole,Dynali 90 DC,شركة مازن القواسمة واولاده,3% +6% W/V,Chemark ZRT For Sengenta,20/10/2026
+4190,Azoxystrobin+Difenoconazole,Mix Top SC,الحياة الزراعية,20%+12.5%W/V,Jiangsu greensci chemical Co.Ltd,30/6/2024
+4086,Azoxystrobin+Difenoconazole,New Top,مؤسسة الوفق الزراعية,20%+12.5%W/V,Shandong Heyi Biological Technology Co.Ltd.,22/9/2025
+4157,Azoxystrobin+Difenoconazole,Latova,مستخلصات الطبيعة لصناعة مغذيات النبات,20%+12.5%W/V,Shangong United Pesticide Industry,20/11/2023
+4008,Azoxystrobin + Difenoconazole,Aisok,شركة الحديثة لصناعة الادوية البيطرية والمبيدات الزراعية,20% + 12.5% w/w,Movetco,14/1/2026
+1599,Famoxadone + Cymoxanil,Equation pro -WDG,شركة المواد الزراعية مقدادي,22.5+30% W/W,Corteva Agriscience SaS.,30/6/2024
+3657,Famoxadone + Cymoxanil,Sega Sword -WDG,شركة الدائرة الخضراء الزراعية,22.5% + 30% W/W,Zhejiang Sega Science and Technology Co.ltd,14/10/2026
+3693,Cymoxanil + Famoxadone,Action pro-52.5% WG,مؤسسة الوفق الزراعية,30% +22.5% W/W,Zhejiang Sega Science And Technology Co.ltd/Sino Agro Chemical Industry Ltd,14/10/2026
+4691,Famoxadon+Cymoxanil+,Lusail,الفيروز للمواد الزراعية,22.5 و/و+30 W/W+,,08/02/2028
+4386,Cymoxanil+Copper Oxychloride+,Novacut WG,شركة الهضبة,4.3% w/w+39.75 % w/w+,استرانوفا,25/07/2028
+4218,Cymoxanil 30%+Famoxadone22.5%W/W,Famorix 52.5%DF,الشركة الأردنية لإنتاج المبيدات والعلاجات الزراعية/Agri Sciences,30%+22.5%W/V,الشركة الأردنية لإنتاج المبيدات والعلاجات الزراعية/Agri Sciences,غير منتهي
+4720,Cymoxanil+zoxamide+,ZOXANIL-66% WDG,شركة مصانع المواد الزراعية/ اجروكم,w/w 33%+ w/w 33% +,شركة مصانع المواد الزراعية/ اجروكم,03/11/2029
+4753,Cymoxanil+Famoxadon+,DINIT 525 WDG,شركة عبد الحافظ الزراعيه,30% W/W+22.5% W/W+,,29/12/2027
+4085,Zoxamide + Cymoxanil,Reboot,الشركة الأردنية لإنتاج المبيدات الحشرية والعلاجات الزراعية,33%+33% w/w,Gowan Crop protectim /solfotecniqa italiang,30/11/2026
+4193,cymoxanil+Famoxadon,Finish PRO WDG,الامتياز للمواد الزراعية,30%+22.5%W/W,Shanghai Shengong Pesticide Co.Ltd,13/8/2024
+2172,Tebuconazole 2% w/w,Tebicon WS,مدماك لانتاج الاسمده والادوية الزراعية والبيطرية,2% W/W,MEDMAC,31/08/2025
+2368,Tebuconazole 25% w/w,Tebizole 25%WP,مصانع الادويةالبيطرية والزراعية فابكو,25% W/W,VAPCO,غير منتهي
+2156,Tebuconazole,Flyer-30% SC,مؤسسة كريستال للزراعة والتجارة,30% W/W,JIANGSU KESHENG ZHENJIANG AGREEN,11/3/2024
+2486,Trifloxystrobin +Tebuconazole,Nativo-75% WG,الشركة العربية للمستحضرات الطبية,25 %+ 50% W/W,BAYER,15/9/2028
+3855,Tebuconazole,Tebizole 25%EC,شركة مصانع الادوية البيطرية ووالزراعية /فابكو,25%w/v,Vapco,31/12/2024
+3855,Tebuconazole25%,Tebizole 25%EC,شركة مصانع الادوية البيطرية ووالزراعية /فابكو,25%w/v,Vapco,31/12/2029
+3905,Tebuconazole 50%+Trifloxystrobin25% w/w,Conabin 75%WDG,المؤسسة المحلية للصناعات والزراعة,50%+25%w\\w,Phu Hong co.LTD,28/3/2025
+3905,Tebuconazole 50%+Trifloxystrobin25% w/w,Conabin 75%WDG,المؤسسة المحلية للصناعات والزراعة,50%+25%w\\w,Phu Hong co.LTD,28/3/2025
+3905,Tebuconazole 50%+Trifloxystrobin25% w/w,Conabin 75%WDG,المؤسسة المحلية للصناعات والزراعة,50%+25%ww,Phu Hong co.LTD,21/11/2027
+4693,Fluopyram+Trifloxystrobin+,Pona 50% SC,شركة مصنع معادن لإنتاج المبيدات والأسمدة,25% w/v+25% w/v+,شركة مصنع معادن لإنتاج المبيدات والأسمدة,19/09/2029
+4752,Tebuconazole+Trifloxystrobin+,Max Shield 75% WDG,مصنع جراسيا,50% W/W+25% W/W+,شركة جراسيا للصناعات الزراعية,27/02/2030
+4254,Tebuconazole +Trifloxystrobin,Mario,شركة جعفر الكردي وشركاه,50%+25%W/W,Jiangsu Jiannong ABA Agrochemical CO.LTD.,8/2/2027
+4261,Tebuconazole +Trifloxystrobin,Apex,مؤسسة صناعات الكيماويات الزراعية,26.2%+26.2%W/V,ACI,غير منتهي
+4141,Tebuconazole+ Trifloxystrobin,Funjikill75%WG,المؤسسة التحضيرية للمواد الزراعية,50%+25%w\\w,Jiangsu Greenscie Chemical Co.Ltd,8/5/2027
+`;
+        // تحميل البيانات من ملف CSV مع fallback
+        async function loadCSVData() {
+            try {
+                // محاولة تحميل من الملف أولاً
+                const response = await fetch('pesticides_results.csv');
+                if (response.ok) {
+                    const csvText = await response.text();
+                    data = parseCSV(csvText);
+                    console.log(`تم تحميل ${data.length} سجل من الملف بنجاح`);
+                } else {
+                    throw new Error('الملف غير موجود');
+                }
+            } catch (error) {
+                console.log('استخدام البيانات الاحتياطية:', error.message);
+                // استخدام البيانات الاحتياطية
+                data = parseCSV(fallbackData);
+                console.log(`تم تحميل ${data.length} سجل من البيانات الاحتياطية`);
+            }
+            
+            displayData(data);
+        }
+
+        // نحول CSV إلى Array of Objects
+        function parseCSV(csvText) {
+            const lines = csvText.trim().split('\n');
+            const headers = lines[0].split(',');
+            return lines.slice(1).map(line => {
+                const values = line.split(',');
+                let obj = {};
+                headers.forEach((h, i) => obj[h] = values[i]);
+                return obj;
+            }).filter(row => row.registrationNo && row.registrationNo.trim() !== ''); // إزالة الصفوف الفارغة
+        }
+
+        // فحص الكلمات المحددة
+        function checkWarningKeywords(searchTerm) {
+            const lowerSearchTerm = searchTerm.toLowerCase();
+            const matchedKeywords = warningKeywords.filter(keyword => 
+                lowerSearchTerm.includes(keyword.toLowerCase())
+            );
+            
+            const warningAlert = document.getElementById('warningAlert');
+            
+            if (matchedKeywords.length > 0) {
+                warningAlert.classList.add('show');
+                console.log(`تحذير: تم العثور على كلمات محددة: ${matchedKeywords.join(', ')}`);
+            } else {
+                warningAlert.classList.remove('show');
+            }
+        }
+
+        // عرض Modal للوصف السريع
+        function showDrugModal(drugData) {
+            const modal = new bootstrap.Modal(document.getElementById('drugModal'));
+            const modalBody = document.getElementById('modalBody');
+            const modalTitle = document.getElementById('drugModalLabel');
+            const pdfLink = document.getElementById('modalPdfLink');
+            
+            // البحث عن وصف الدواء
+            let drugInfo = null;
+            const commonName = drugData.commonName.toLowerCase();
+            
+            for (const [key, info] of Object.entries(drugDescriptions)) {
+                if (commonName.includes(key.toLowerCase())) {
+                    drugInfo = info;
+                    break;
+                }
+            }
+            
+            // تحديث عنوان Modal
+            modalTitle.innerHTML = `<i class="fas fa-pills me-2"></i>${drugData.commonName}`;
+            
+            // تحديث رابط PDF
+            pdfLink.href = `https://dms.moa.gov.jo/PesticidesFiles/${drugData.registrationNo}.pdf`;
+            
+            // إنشاء محتوى Modal
+            let modalContent = `
+                <div class="drug-info">
+                    <h6><i class="fas fa-info-circle me-2"></i>معلومات أساسية</h6>
+                    <p><strong>رقم التسجيل:</strong> ${drugData.registrationNo}</p>
+                    <p><strong>الاسم التجاري:</strong> ${drugData.tradeName}</p>
+                    <p><strong>الشركة المصنعة:</strong> ${drugData.company}</p>
+                    <p><strong>تاريخ الانتهاء:</strong> ${drugData.expiry}</p>
+                </div>
+            `;
+            
+            if (drugInfo) {
+                modalContent += `
+                    <div class="drug-description">
+                        <h6><i class="fas fa-book-medical me-2"></i>الوصف السريع</h6>
+                        <p><strong>الاسم العلمي:</strong> ${drugInfo.name}</p>
+                        <p><strong>النوع:</strong> ${drugInfo.type}</p>
+                        <p><strong>الوصف:</strong> ${drugInfo.description}</p>
+                        <p><strong>الاستخدامات:</strong> ${drugInfo.uses}</p>
+                        <p><strong>السلامة:</strong> ${drugInfo.safety}</p>
+                    </div>
+                `;
+            } else {
+                modalContent += `
+                    <div class="drug-description">
+                        <h6><i class="fas fa-exclamation-triangle me-2"></i>ملاحظة</h6>
+                        <p>لا تتوفر معلومات وصفية سريعة لهذا الدواء حالياً. يرجى مراجعة الملف PDF للحصول على معلومات مفصلة.</p>
+                    </div>
+                `;
+            }
+            
+            modalBody.innerHTML = modalContent;
+            modal.show();
+        }
+
+        // عرض البيانات
+        function displayData(filteredData, highlight='') {
+            const table = document.getElementById('dataTable');
+            table.innerHTML = '';
+            
+            if (filteredData.length === 0) {
+                table.innerHTML = `
+                    <tr>
+                        <td colspan="8" class="loading">
+                            <i class="fas fa-search text-muted"></i>
+                            لا توجد نتائج للبحث
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            filteredData.forEach(row => {
+                const pdfLink = `https://dms.moa.gov.jo/PesticidesFiles/${row.registrationNo}.pdf`;
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td onclick="showDrugModal(${JSON.stringify(row).replace(/"/g, '&quot;')})">${highlightText(row.registrationNo, highlight)}</td>
+                    <td onclick="showDrugModal(${JSON.stringify(row).replace(/"/g, '&quot;')})">${highlightText(row.commonName, highlight)}</td>
+                    <td onclick="showDrugModal(${JSON.stringify(row).replace(/"/g, '&quot;')})">${highlightText(row.tradeName, highlight)}</td>
+                    <td onclick="showDrugModal(${JSON.stringify(row).replace(/"/g, '&quot;')})">${highlightText(row.localName, highlight)}</td>
+                    <td onclick="showDrugModal(${JSON.stringify(row).replace(/"/g, '&quot;')})">${highlightText(row.ai, highlight)}</td>
+                    <td onclick="showDrugModal(${JSON.stringify(row).replace(/"/g, '&quot;')})">${highlightText(row.company, highlight)}</td>
+                    <td onclick="showDrugModal(${JSON.stringify(row).replace(/"/g, '&quot;')})">${highlightText(row.expiry, highlight)}</td>
+                    <td><a href="${pdfLink}" target="_blank" class="btn btn-primary btn-sm">
+                        <i class="fas fa-file-pdf me-1"></i>فتح PDF
+                    </a></td>
+                `;
+                table.appendChild(tr);
+            });
+        }
+
+        // تمييز النص
+        function highlightText(text, term) {
+            if(!term || !text) return text || '';
+            const regex = new RegExp(`(${term})`, 'gi');
+            return text.replace(regex, '<mark>$1</mark>');
+        }
+
+        // فلترة حسب الكلمة
+        function filterData() {
+            const keywordVal = document.getElementById('searchInput').value.toLowerCase().trim();
+            
+            // فحص الكلمات المحددة
+            checkWarningKeywords(keywordVal);
+            
+            if (!keywordVal) {
+                displayData(data);
+                return;
+            }
+
+            const keywords = keywordVal.split(/\s+/);
+            const filtered = data.filter(row => {
+                const combined = Object.values(row).join(' ').toLowerCase();
+                return keywords.every(kw => combined.includes(kw));
+            });
+
+            displayData(filtered, keywordVal);
+        }
+
+        // autocomplete محسن
+const input = document.getElementById('searchInput');
+const autocompleteList = document.getElementById('autocomplete-list');
+
+function showAutocomplete(val = '', fromFocus = false) {
+    autocompleteList.innerHTML = '';
+    
+    checkWarningKeywords(val);
+
+    let matches = [];
+
+    if (fromFocus && !val) {
+        // عند الضغط فقط (عرض قائمة allKeywords)
+        matches = allKeywords.slice(0, 30); // بتقدر تشيل limit لو بدك كلهم
+    } else {
+        // عند الكتابة (فلترة بالكل)
+        const keywordMatches = allKeywords.filter(keyword => 
+            keyword.toLowerCase().includes(val)
+        );
+
+        const dataMatches = data.filter(row => 
+            Object.values(row).some(v => v && v.toLowerCase().includes(val))
+        ).slice(0, 20);
+
+        matches = [...keywordMatches, ...dataMatches];
+    }
+
+    matches.forEach(item => {
+        const itemDiv = document.createElement('div');
+        itemDiv.classList.add('autocomplete-item');
+
+        const isWarningKeyword = warningKeywords.includes(
+            (typeof item === 'string' ? item.toLowerCase() : item.commonName?.toLowerCase())
+        );
+
+        if (isWarningKeyword) {
+            itemDiv.classList.add('warning');
+            itemDiv.innerHTML = `
+                <strong>${typeof item === 'string' ? item : item.commonName}</strong>
+                <i class="fas fa-exclamation-triangle warning-icon"></i>
+                <span style="color: #666; font-size: 0.9em;">(تحذير: معلومات محدودة)</span>
+            `;
+        } else if (typeof item === 'string') {
+            itemDiv.innerHTML = `<strong>${item}</strong>`;
+        } else {
+            itemDiv.innerHTML = `<strong>${item.registrationNo}</strong> - ${item.commonName}`;
+        }
+
+        itemDiv.addEventListener('click', function() {
+            if (typeof item === 'string') {
+                input.value = item;
+            } else {
+                input.value = item.registrationNo;
+            }
+            autocompleteList.innerHTML = '';
+            filterData();
+        });
+
+        autocompleteList.appendChild(itemDiv);
+    });
+}
+
+// عند الكتابة (يبحث بالكل)
+input.addEventListener('input', function() {
+    showAutocomplete(this.value.toLowerCase(), false);
+});
+
+// عند التركيز (يظهر قائمة allKeywords فقط)
+input.addEventListener('focus', function() {
+    showAutocomplete(this.value.toLowerCase(), true);
+});
+
+// اغلاق القائمة عند النقر خارجها
+document.addEventListener('click', function(e) {
+    if (e.target !== input) {
+        autocompleteList.innerHTML = '';
+    }
+});
+
+
+        // تحميل البيانات عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', loadCSVData);
+    </script>
+</body>
+</html>
